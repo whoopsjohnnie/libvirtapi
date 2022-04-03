@@ -1,0 +1,26 @@
+
+# flask
+Flask==1.1.1
+flask-blueprint
+Flask-RESTful
+flask-cors
+flask-swagger
+
+simplejson
+
+# Flask import error
+# ImportError: cannot import name 'escape' from 'jinja2'
+# Jinja2==3.1.1
+Jinja2==3.0.3
+
+# I mean, wtf?
+# ImportError: cannot import name 'json' from 'itsdangerous' (/usr/lib/python3.8/site-packages/itsdangerous/__init__.py)
+# itsdangerous==2.0.1
+# MarkupSafe==2.0.1
+itsdangerous==2.0.1
+MarkupSafe==2.0.1
+
+Werkzeug==0.15.5
+
+libvirt-python==6.1.0
+# libvirt-python==8.1.0
