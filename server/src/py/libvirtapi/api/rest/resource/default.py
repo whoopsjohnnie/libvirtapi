@@ -97,6 +97,28 @@ class DefaultResource(Resource):
             "info": info
         }
 
+    def buildInterface(self, interface):
+        # info = interface.info()
+        return {
+            # "id": interface.id, # interface.id(), 
+            "name": interface.name(), 
+            "active": interface.isActive(), 
+            "mac": interface.MACString()
+            # "info": info
+        }
+
+    def buildNetwork(self, network):
+        # info = network.info()
+        return {
+            # "id": network.id, # network.id(), 
+            "name": network.name(), 
+            "uuid": network.UUIDString(), 
+            "autostart": network.autostart(), 
+            "active": network.isActive(), 
+            "persistent": network.isPersistent(), 
+            # "info": info
+        }
+
     def ok(self, data, request):
         if request.headers and "Accept" in request.headers:
             if request.headers.get("Accept") == "application/yaml":
