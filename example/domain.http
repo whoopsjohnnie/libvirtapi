@@ -1,0 +1,156 @@
+#
+# Example VSCode rest client domain HTTP calls
+#
+
+@baseUrl = http://nuke:8080
+
+@driver = qemu
+@hypervisor = system
+
+# @poolName = 
+# @poolUUID = 
+# <uuid>{{poolUUID}}</uuid>
+@poolPath = 
+
+@volume1Name = 
+# @volume1Path = 
+# @volume1Size = 
+
+@volume2Name = 
+# @volume2Path = 
+# @volume2Size = 
+
+@domainName = 
+# @domainUUID = 
+# <uuid>{{domainUUID}}</uuid>
+@domainMem = 
+
+# @domainVolume1 = 
+# @domainVolume2 = 
+@domainInstallISO = 
+@domainNetworkMac = 
+
+@networkName = 
+@networkBridge = 
+
+@vncHost = 0.0.0.0
+@vncPort = 5900
+
+
+
+###
+# @name getAllDomains
+GET {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/domain HTTP/1.1
+Content-Type: application/json
+
+{}
+
+
+
+###
+# @name createDomain
+POST {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/domain HTTP/1.1
+Content-Type: application/xml
+
+<domain type="kvm">
+  <name>{{domainName}}</name>
+  <currentMemory unit="G">{{domainMem}}</currentMemory>
+  <memory unit="G">{{domainMem}}</memory>
+  <os>
+    <type arch='x86_64'>hvm</type>
+    <boot dev="hd"/>
+    <boot dev="cdrom"/>
+  </os>
+  <features>
+    <acpi/>
+    <apic/>
+  </features>
+  <clock offset="utc"/>
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+  <vcpu>2</vcpu>
+  <devices>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="raw"/>
+      <source file="{{poolPath}}/{{volume1Name}}"/>
+      <target dev="vda" bus="virtio"/>
+    </disk>
+    <disk type="file" device="disk">
+      <driver name="qemu" type="raw"/>
+      <source file="{{poolPath}}/{{volume2Name}}"/>
+      <target dev="vdb" bus="virtio"/>
+    </disk>
+    <disk type="file" device="cdrom">
+      <source file="{{domainInstallISO}}"/>
+      <target dev="hdc" bus="ide"/>
+      <readonly/>
+    </disk>
+    <interface type="bridge">
+      <source network="{{networkName}}" bridge="{{networkBridge}}"/>
+      <mac address="{{domainNetworkMac}}"/>
+      <target dev='vnet0'/>
+      <model type='virtio'/>
+      <alias name='net0'/>
+    </interface>
+    <input type="tablet" bus="usb">
+      <alias name="input0"/>
+      <address type="usb" bus="0" port="1"/>
+    </input>
+    <input type="mouse" bus="ps2">
+      <alias name="input1"/>
+    </input>
+    <input type="keyboard" bus="ps2">
+      <alias name="input2"/>
+    </input>
+    <graphics type="vnc" port="{{vncPort}}" autoport="no" listen="{{vncHost}}">
+      <listen type="address" address="{{vncHost}}"/>
+    </graphics>
+    <console type="pty"/>
+    <video>
+      <model type="cirrus"/>
+    </video>
+  </devices>
+</domain>
+
+
+
+###
+# @name getDomain
+GET {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/domain/{{domainName}} HTTP/1.1
+Content-Type: application/json
+
+{}
+
+
+
+###
+# @name startDomain
+PUT {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/domain/{{domainName}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "active": 1, 
+  "autostart": 1
+}
+
+
+
+###
+# @name stopDomain
+PUT {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/domain/{{domainName}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "active": 0, 
+  "autostart": 0
+}
+
+
+
+###
+# @name deleteDomain
+DELETE {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/domain/{{domainName}} HTTP/1.1
+Content-Type: application/json
+
+{}

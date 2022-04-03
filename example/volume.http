@@ -1,0 +1,109 @@
+#
+# Example VSCode rest client volume HTTP calls
+#
+
+@baseUrl = http://nuke:8080
+
+@driver = qemu
+@hypervisor = system
+
+@poolName = 
+# @poolUUID = 
+# <uuid>{{poolUUID}}</uuid>
+@poolPath = 
+
+@volume1Name = 
+# @volume1Path = 
+@volume1Size = 
+
+@volume2Name = 
+# @volume2Path = 
+@volume2Size = 
+
+
+###
+# @name getAllVolumes
+GET {{baseUrl}}/api/v1.0/qemu/system/pool/{{poolName}}/volume HTTP/1.1
+Content-Type: application/json
+
+{}
+
+
+
+###
+# @name createVolume1
+POST {{baseUrl}}/api/v1.0/qemu/system/pool/{{poolName}}/volume HTTP/1.1
+Content-Type: application/xml
+
+<volume>
+  <name>{{volume1Name}}</name>
+  <allocation>0</allocation>
+  <capacity unit="G">{{volume1Size}}</capacity>
+  <target>
+    <path>{{poolPath}}/{{volume1Name}}</path>
+    <permissions>
+      <mode>0744</mode>
+      <owner>-1</owner>
+      <group>-1</group>
+      <label>virt_image_t</label>
+    </permissions>
+  </target>
+</volume>
+
+
+
+###
+# @name createVolume2
+POST {{baseUrl}}/api/v1.0/qemu/system/pool/{{poolName}}/volume HTTP/1.1
+Content-Type: application/xml
+
+<volume>
+  <name>{{volume2Name}}</name>
+  <allocation>0</allocation>
+  <capacity unit="G">{{volume2Size}}</capacity>
+  <target>
+    <path>{{poolPath}}/{{volume2Name}}</path>
+    <permissions>
+      <mode>0744</mode>
+      <owner>-1</owner>
+      <group>-1</group>
+      <label>virt_image_t</label>
+    </permissions>
+  </target>
+</volume>
+
+
+
+###
+# @name getVolume1
+GET {{baseUrl}}/api/v1.0/qemu/system/pool/{{poolName}}/volume/{{volume1Name}} HTTP/1.1
+Content-Type: application/json
+
+{}
+
+
+
+###
+# @name getVolume2
+GET {{baseUrl}}/api/v1.0/qemu/system/pool/{{poolName}}/volume/{{volume2Name}} HTTP/1.1
+Content-Type: application/json
+
+{}
+
+
+
+###
+# @name deleteVolume1
+DELETE {{baseUrl}}/api/v1.0/qemu/system/pool/{{poolName}}/volume/{{volume1Name}} HTTP/1.1
+Content-Type: application/json
+
+{}
+
+
+
+###
+# @name deleteVolume2
+DELETE {{baseUrl}}/api/v1.0/qemu/system/pool/{{poolName}}/volume/{{volume2Name}} HTTP/1.1
+Content-Type: application/json
+
+{}
