@@ -7,12 +7,26 @@
 @driver = qemu
 @hypervisor = system
 
+# @poolName = 
+# @poolUUID = 
+# <uuid>{{poolUUID}}</uuid>
+@poolPath = 
+
+@volume1Name = 
+# @volume1Path = 
+# @volume1Size = 
+
+@volume2Name = 
+# @volume2Path = 
+# @volume2Size = 
+
 @domainName = 
-@domainUUID = 
+# @domainUUID = 
+# <uuid>{{domainUUID}}</uuid>
 @domainMem = 
 
-@domainVolume1 = 
-@domainVolume2 = 
+# @domainVolume1 = 
+# @domainVolume2 = 
 @domainInstallISO = 
 @domainNetworkMac = 
 
@@ -21,6 +35,8 @@
 
 @vncHost = 0.0.0.0
 @vncPort = 5900
+
+
 
 ###
 # @name getAllDomains
@@ -40,7 +56,6 @@ Content-Type: application/xml
   <name>{{domainName}}</name>
   <currentMemory unit="G">{{domainMem}}</currentMemory>
   <memory unit="G">{{domainMem}}</memory>
-  <uuid>{{domainUUID}}</uuid>
   <os>
     <type arch='x86_64'>hvm</type>
     <boot dev="hd"/>
@@ -58,12 +73,12 @@ Content-Type: application/xml
   <devices>
     <disk type="file" device="disk">
       <driver name="qemu" type="raw"/>
-      <source file="{{domainVolume1}}"/>
+      <source file="{{poolPath}}/{{volume1Name}}"/>
       <target dev="vda" bus="virtio"/>
     </disk>
     <disk type="file" device="disk">
       <driver name="qemu" type="raw"/>
-      <source file="{{domainVolume2}}"/>
+      <source file="{{poolPath}}/{{volume2Name}}"/>
       <target dev="vdb" bus="virtio"/>
     </disk>
     <disk type="file" device="cdrom">

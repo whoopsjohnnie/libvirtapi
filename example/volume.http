@@ -8,14 +8,16 @@
 @hypervisor = system
 
 @poolName = 
-@poolUUID = 
+# @poolUUID = 
+# <uuid>{{poolUUID}}</uuid>
+@poolPath = 
 
 @volume1Name = 
-@volume1Path = 
+# @volume1Path = 
 @volume1Size = 
 
 @volume2Name = 
-@volume2Path = 
+# @volume2Path = 
 @volume2Size = 
 
 
@@ -38,11 +40,11 @@ Content-Type: application/xml
   <allocation>0</allocation>
   <capacity unit="G">{{volume1Size}}</capacity>
   <target>
-    <path>{{volume1Path}}</path>
+    <path>{{poolPath}}/{{volume1Name}}</path>
     <permissions>
-      <owner>1001</owner>
-      <group>1001</group>
       <mode>0744</mode>
+      <owner>-1</owner>
+      <group>-1</group>
       <label>virt_image_t</label>
     </permissions>
   </target>
@@ -60,11 +62,11 @@ Content-Type: application/xml
   <allocation>0</allocation>
   <capacity unit="G">{{volume2Size}}</capacity>
   <target>
-    <path>{{volume2Path}}</path>
+    <path>{{poolPath}}/{{volume2Name}}</path>
     <permissions>
-      <owner>1001</owner>
-      <group>1001</group>
       <mode>0744</mode>
+      <owner>-1</owner>
+      <group>-1</group>
       <label>virt_image_t</label>
     </permissions>
   </target>
