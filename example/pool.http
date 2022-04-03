@@ -1,0 +1,87 @@
+#
+# Example VSCode rest client pool HTTP calls
+#
+
+@baseUrl = http://nuke:8080
+
+@driver = qemu
+@hypervisor = system
+
+@poolName = 
+@poolUUID = 
+
+
+
+###
+# @name getAllPools
+GET {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/pool HTTP/1.1
+Content-Type: application/json
+
+{}
+
+
+
+###
+# @name createPool
+POST {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/pool HTTP/1.1
+Content-Type: application/xml
+
+<pool type="dir">
+  <name>{{baseUrl}}</name>
+  <uuid>{{poolUUID}}</uuid>
+  <capacity unit="bytes">4306780815</capacity>
+  <allocation unit="bytes">237457858</allocation>
+  <available unit="bytes">4069322956</available>
+  <source>
+  </source>
+  <target>
+    <path>/tmp</path>
+    <permissions>
+      <mode>0755</mode>
+      <owner>-1</owner>
+      <group>-1</group>
+    </permissions>
+  </target>
+</pool>
+
+
+
+###
+# @name getPool
+GET {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/pool/{{poolName}} HTTP/1.1
+Content-Type: application/json
+
+{}
+
+
+
+###
+# @name activatePool
+PUT {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/pool/{{poolName}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "active": 1, 
+  "autostart": 1
+}
+
+
+
+###
+# @name deactivatePool
+PUT {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/pool/{{poolName}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "active": 0, 
+  "autostart": 0
+}
+
+
+
+###
+# @name deletePool
+DELETE {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/pool/{{poolName}} HTTP/1.1
+Content-Type: application/json
+
+{}
