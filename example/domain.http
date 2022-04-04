@@ -7,31 +7,31 @@
 @driver = qemu
 @hypervisor = system
 
-# @poolName = 
+# @poolName = lab
 # @poolUUID = 
 # <uuid>{{poolUUID}}</uuid>
-@poolPath = 
+@poolPath = /lab/
 
-@volume1Name = 
-# @volume1Path = 
-# @volume1Size = 
+@volume1Name = naslab-boot.img
+# @volume1Path = /lab/naslab-boot.img
+# @volume1Size = 50
 
-@volume2Name = 
-# @volume2Path = 
-# @volume2Size = 
+@volume2Name = naslab-pool.img
+# @volume2Path = /lab/naslab-pool.img
+# @volume2Size = 50
 
-@domainName = 
+@domainName = naslab
 # @domainUUID = 
 # <uuid>{{domainUUID}}</uuid>
-@domainMem = 
+@domainMem = 8
 
-# @domainVolume1 = 
-# @domainVolume2 = 
-@domainInstallISO = 
+# @domainVolume1 = /lab/naslab-boot.img
+# @domainVolume2 = /lab/naslab-pool.img
+@domainInstallISO = /lab/TrueNAS-SCALE-22.02.0.iso
 @domainNetworkMac = 
 
-@networkName = 
-@networkBridge = 
+@networkName = br0
+@networkBridge = br0
 
 @vncHost = 0.0.0.0
 @vncPort = 5900

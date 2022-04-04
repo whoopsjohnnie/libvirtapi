@@ -7,10 +7,10 @@
 @driver = qemu
 @hypervisor = system
 
-@poolName = 
+@poolName = lab
 # @poolUUID = 
 # <uuid>{{poolUUID}}</uuid>
-@poolPath = 
+@poolPath = /lab/
 
 
 ###

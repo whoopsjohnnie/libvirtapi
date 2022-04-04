@@ -7,18 +7,18 @@
 @driver = qemu
 @hypervisor = system
 
-@poolName = 
+@poolName = lab
 # @poolUUID = 
 # <uuid>{{poolUUID}}</uuid>
-@poolPath = 
+@poolPath = /lab/
 
-@volume1Name = 
-# @volume1Path = 
-@volume1Size = 
+@volume1Name = naslab-boot.img
+# @volume1Path = /lab/naslab-boot.img
+@volume1Size = 50
 
-@volume2Name = 
-# @volume2Path = 
-@volume2Size = 
+@volume2Name = naslab-pool.img
+# @volume2Path = /lab/naslab-pool.img
+@volume2Size = 50
 
 
 ###
