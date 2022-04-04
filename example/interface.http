@@ -1,0 +1,28 @@
+#
+# Example VSCode rest client interface HTTP calls
+#
+
+@baseUrl = http://nuke:8080
+
+@driver = qemu
+@hypervisor = system
+
+@interfaceName = br0
+
+
+
+###
+# @name getAllInterfaces
+GET {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/interface HTTP/1.1
+Content-Type: application/json
+
+{}
+
+
+
+###
+# @name getInterface
+GET {{baseUrl}}/api/v1.0/{{driver}}/{{hypervisor}}/interface/{{interfaceName}} HTTP/1.1
+Content-Type: application/json
+
+{}
